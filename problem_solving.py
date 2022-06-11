@@ -25,19 +25,40 @@ def fertiliser(an, ap, bn, bp, n, p):
       return None
    return a, b
 
-def decide(P, ulist):
-   U = np.row_stack(ulist)
-   utilities = U @ P
-   best = utilities.argmax()
-   return best, utilities[best]
+
+Likelihood = {
+      'bias1': { 'heads': 0.7, 'tails': 0.3 },
+      'bias2': { 'heads': 0.4, 'tails': 0.6 }
+}
+init_prior = {
+      'bias1': 0.5,
+      'bias2': 0.5
+}
 
 def makeBet(headsOdds, tailsOdds, previousOutcome, state):
-   likelihood = 
-   U1 = np.array([headsOdds, -1]) #choosing heads
-   U2 = no.array([-1, tailsOdds]) #choosing tails
-   utils = [U1, U2]
-   decide = decide(P,utils)
-   if decide[1] <= 0 :
+   if (state == None) : #initialisation of the prior
+      prior = init_prior
+   else :
+      prior = state
+   E = previousOutcome
+
+   #posterior probability
+   P = P.posterior(prior, likelihood,{E})
+   #Utilities functions
+   betHeads = {
+      'heads': headsOdds,
+      'tails': -1
+   }
+   betTails = {
+      'heads': -1,
+      'tails': tailsOdds
+   }
+   noBet = {
+      'heads': 0,
+      'tails': 0
+   }
+   decide = P.decide(P,utils)
+   if decide[1] <= 0 : #the profit is negative
       bet = 'no bet'
    else if decide[0] == 0 :
       bet = 'heads'
