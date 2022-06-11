@@ -1,6 +1,7 @@
 import numpy as np
 import numpy.linalg
 import re
+import probability as P
 
 # Uncomment and implement two of the following.  Refer to the Problem solving brief for specifications.
 
@@ -24,10 +25,26 @@ def fertiliser(an, ap, bn, bp, n, p):
       return None
    return a, b
 
-# def makeBet(headsOdds, tailsOdds, previousOutcome, state):
-#  # bet =
-#  # state = 
-#  return (bet, state)
+def decide(P, ulist):
+   U = np.row_stack(ulist)
+   utilities = U @ P
+   best = utilities.argmax()
+   return best, utilities[best]
+
+def makeBet(headsOdds, tailsOdds, previousOutcome, state):
+   likelihood = 
+   U1 = np.array([headsOdds, -1]) #choosing heads
+   U2 = no.array([-1, tailsOdds]) #choosing tails
+   utils = [U1, U2]
+   decide = decide(P,utils)
+   if decide[1] <= 0 :
+      bet = 'no bet'
+   else if decide[0] == 0 :
+      bet = 'heads'
+   else:
+      bet = 'tails'
+   state = 
+   return (bet, state)
 
 
 # The following will be run if you execute the file like python3 problem_solving.py
