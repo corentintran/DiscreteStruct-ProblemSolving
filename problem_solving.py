@@ -43,7 +43,11 @@ def makeBet(headsOdds, tailsOdds, previousOutcome, state):
    E = previousOutcome
 
    #posterior probability
-   P = P.posterior(prior, likelihood,{E})
+   posterior = P.posterior(prior, likelihood,{E})
+   prior = {
+      'bias1': posterior,
+      'bias2': 0.5
+   }
    #Utilities functions
    betHeads = {
       'heads': headsOdds,
