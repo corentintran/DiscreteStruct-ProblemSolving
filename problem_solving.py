@@ -57,13 +57,7 @@ def makeBet(headsOdds, tailsOdds, previousOutcome, state):
       'heads': 0,
       'tails': 0
    }
-   decide = P.decide(P,utils)
-   if decide[1] <= 0 : #the profit is negative
-      bet = 'no bet'
-   else if decide[0] == 0 :
-      bet = 'heads'
-   else:
-      bet = 'tails'
+   bet = P.decide(P,{'heads': betHeads, 'tails': betTails, 'no bet': noBet})
    state = 
    return (bet, state)
 
