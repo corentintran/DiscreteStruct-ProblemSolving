@@ -1,4 +1,5 @@
 import numpy as np
+import numpy.linalg
 import re
 
 # Uncomment and implement two of the following.  Refer to the Problem solving brief for specifications.
@@ -7,10 +8,21 @@ import re
 #    #r = 
 #    return r
 
-# def fertiliser(an, ap, bn, bp, n, p):
-#    # a = 
-#    # b = 
-#    return a, b
+def fertiliser(an, ap, bn, bp, n, p):
+   A = np.array([[an, bn],[ap, bp]]) #The matrix of the problem
+   y = np.array([n, p]) #The vector of parameters
+   if np.linalg.det(A) != 0 : 
+      Ainv = np.linalg.inv(A)
+      # x is the vector of unknown
+      x = Ainv @ y
+   else : #The determinant of the matrix is null, the equation has no solution
+      print("here")
+      return None
+   a = x[0]
+   b = x[1]
+   if (a < 0) | (b<0) : #The solution has at leat one negative term, it is non-physical
+      return None
+   return a, b
 
 # def makeBet(headsOdds, tailsOdds, previousOutcome, state):
 #  # bet =
