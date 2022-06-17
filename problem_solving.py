@@ -26,7 +26,7 @@ def fertiliser(an, ap, bn, bp, n, p):
    return a, b
 
 
-Likelihood = {
+likelihood = {
       'bias1': { 'heads': 0.7, 'tails': 0.3 },
       'bias2': { 'heads': 0.4, 'tails': 0.6 }
 }
@@ -40,14 +40,8 @@ def makeBet(headsOdds, tailsOdds, previousOutcome, state):
       prior = init_prior
    else :
       prior = state
-   E = previousOutcome
+   E = {previousOutcome}
 
-   #posterior probability
-   posterior = P.posterior(prior, likelihood,{E})
-   prior = {
-      'bias1': posterior,
-      'bias2': 0.5
-   }
    #Utilities functions
    betHeads = {
       'heads': headsOdds,
@@ -61,9 +55,23 @@ def makeBet(headsOdds, tailsOdds, previousOutcome, state):
       'heads': 0,
       'tails': 0
    }
-   bet = P.decide(P,{'heads': betHeads, 'tails': betTails, 'no bet': noBet})
-   state = 
-   return (bet, state)
+   #posterior probability
+   if (previousOutcome==None) :
+      post = prior
+   else : 
+      post = P.posterior(init_prior, likelihood, E)
+
+   prob = { 'heads': post['bias1']*0.7 + post['bias2']*0.4, 'tails': post['bias1']*0.3  + post['bias2']*0.6}
+   bet = P.decide(prob,{'heads': betHeads, 'tails': betTails, 'no bet': noBet})
+   state = post
+
+   return (bet[0], state)
+   
+
+   
+   
+   
+   
 
 
 # The following will be run if you execute the file like python3 problem_solving.py
