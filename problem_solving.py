@@ -57,6 +57,7 @@ def makeBet(headsOdds, tailsOdds, previousOutcome, state):
    }
    #posterior probability
    if (previousOutcome==None) :
+      #first iteration
       post = prior
    else : 
       post = P.posterior(prior, likelihood, E) #from probability.py
