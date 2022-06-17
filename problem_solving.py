@@ -59,10 +59,10 @@ def makeBet(headsOdds, tailsOdds, previousOutcome, state):
    if (previousOutcome==None) :
       post = prior
    else : 
-      post = P.posterior(init_prior, likelihood, E)
+      post = P.posterior(prior, likelihood, E) #from probability.py
 
    prob = { 'heads': post['bias1']*0.7 + post['bias2']*0.4, 'tails': post['bias1']*0.3  + post['bias2']*0.6}
-   bet = P.decide(prob,{'heads': betHeads, 'tails': betTails, 'no bet': noBet})
+   bet = P.decide(prob,{'heads': betHeads, 'tails': betTails, 'no bet': noBet}) #from probability.py
    state = post
 
    return (bet[0], state)
